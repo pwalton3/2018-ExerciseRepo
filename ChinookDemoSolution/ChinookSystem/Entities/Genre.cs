@@ -17,10 +17,12 @@ namespace ChinookSystem.Entities
         private string _Name;
         [Key]
         public int GenreId { get; set; }
+        [StringLength(120, ErrorMessage = "Genre is limited to 120 characters!")]
         public string Name
         {
             get { return _Name; }
             set { _Name = string.IsNullOrEmpty(value) ? null : value; }
         }
+        public virtual ICollection<Track> Tracks { get; set; }
     }
 }

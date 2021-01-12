@@ -33,12 +33,15 @@ namespace ChinookSystem.Entities
             get { return _Composer; }
             set { _Composer = string.IsNullOrEmpty(value) ? null : value; }
         }
-        [Required(ErrorMessage = "Miliseconds is a required field!")]
+        
         public int Miliseconds { get; set; }
 
         public int? Bytes { get; set; }
-        [Required(ErrorMessage = "Unit Price is a required field!")]
+        
         public decimal UnitPrice {get;set;}
+        public virtual Album Album { get; set; }
+        public virtual Genre Genre { get; set; }
+        public virtual MediaType MediaType { get; set; }
     }
         
     
