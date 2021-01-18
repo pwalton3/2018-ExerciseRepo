@@ -1,36 +1,36 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-#region Additional NameSpace
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-
-#endregion
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Spatial;
 
 namespace ChinookSystem.Entities
 {
-    [Table("Artists")]
-    internal class Artist
+    internal partial class Artist
     {
         private string _Name;
-        [Key]
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
+            "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Artist()
+        {
+            Albums = new HashSet<Album>();
+        }
+
         public int ArtistId { get; set; }
 
-
-        [StringLength(120, ErrorMessage = "Artist Name is limited to 120 characters.")]
+        [StringLength(120, ErrorMessage ="Artist name is limited to 120 characters")]
         public string Name
         {
-            get { return _Name;}
-            set {_Name = string.IsNullOrEmpty(value) ? null : value; }
+            get { return _Name; }
+            set { _Name = string.IsNullOrEmpty(value) ? null : value; }
+            
+
+            
         }
-        //navigational properties
-        //1 to many relationship; create the many relationship in this entity
-        //think of it like this
-        //Artist has a collection of Albums; an Album belongs to an Artist
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", 
+            "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Album> Albums { get; set; }
     }
 }

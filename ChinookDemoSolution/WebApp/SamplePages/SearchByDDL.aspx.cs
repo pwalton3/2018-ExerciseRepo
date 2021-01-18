@@ -24,40 +24,70 @@ namespace WebApp.SamplePages
         }
         protected void LoadArtistList()
         {
+            //user friendly error handling (aka Try/Catch)
 
-            ArtistController sysmgr = new ArtistController();
-            List<SelectionList> info = sysmgr.Artists_ddlList();
+            //use the UserControl MessageUserControl to manage the error handling for the web page when control
+            //leaves the web page and goes to the class library
 
-            //lets assume the data collection needs to be sorted
-            info.Sort((x, y) => x.DisplayField.CompareTo(y.DisplayField));
+            MessageUserControl.TryRun(() => { 
+                //what does inside the coding block?
+                //your code that would normally be inside a Try/Catch
+                ArtistController sysmgr = new ArtistController();
+                List<SelectionList> info = sysmgr.Artists_ddlList();
 
-            //setup the ddl
-            ArtistList.DataSource = info;
-            ArtistList.DataTextField = nameof(SelectionList.DisplayField);
-            ArtistList.DataValueField = nameof(SelectionList.ValueField);
-            ArtistList.DataBind();
+                //lets assume the data collection needs to be sorted
+                info.Sort((x, y) => x.DisplayField.CompareTo(y.DisplayField));
 
-            //setup of a prompt line
-            ArtistList.Items.Insert(0, new ListItem("select...", "0"));
+                //setup the ddl
+                ArtistList.DataSource = info;
+                ArtistList.DataTextField = nameof(SelectionList.DisplayField);
+                ArtistList.DataValueField = nameof(SelectionList.ValueField);
+                ArtistList.DataBind();
+
+                //setup of a prompt line
+                ArtistList.Items.Insert(0, new ListItem("select...", "0"));
+
+
+
+            }, "Success Title Message" ,"The succes title and body messafe are optional");
+
+ 
         }
+        #region Error handling Methods for ODS
 
+        #endregion
+
+        protected void SelectCheckForException(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+            MessageUserControl.HandleDataBoundException(e);
+        }
+        
         protected void SearchAlbums_Click(object sender, EventArgs e)
         {
             if (ArtistList.SelectedIndex == 0)
             {
                 //am i on the first physical line (prompt line) of the ddl
-                MessageLabel.Text = "select an artist for the search!";
+                MessageUserControl.ShowInfo("Search Selection Concern!", "select an artist for the search!");
                 ArtistAlbumsList.DataSource = null;
                 ArtistAlbumsList.DataBind();
             }
             else
             {
-                AlbumController sysmgr = new AlbumController();
-                List<ChinookSystem.ViewModels.ArtistAlbums> info = 
-                    sysmgr.Albums_GetAlbumsForArtist(int.Parse(ArtistList.SelectedValue));
-                ArtistAlbumsList.DataSource = info;
-                ArtistAlbumsList.DataBind();
-            }
+                MessageUserControl.TryRun(() =>
+                {
+                    AlbumController sysmgr = new AlbumController();
+                    List<ChinookSystem.ViewModels.ArtistAlbums> info =
+                        sysmgr.Albums_GetAlbumsForArtist(int.Parse(ArtistList.SelectedValue));
+                    //testing if abort had happened
+                    //throw new Exception("This is a test to see an abort from the web page code");
+                    ArtistAlbumsList.DataSource = info;
+                    ArtistAlbumsList.DataBind();
+
+
+
+                }, "Search Results", "The list of albums for the selected artist");
+            }    
+            
         }
     }
 }
