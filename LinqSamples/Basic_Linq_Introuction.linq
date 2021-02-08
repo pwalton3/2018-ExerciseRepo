@@ -68,17 +68,40 @@
 //   .Where (x => ((x.ReleaseYear >= 1990) && (x.ReleaseYear < 2000)))
 //   .OrderBy (x => x.ReleaseYear)
 //   .ThenByDescending (x => x.Title)
-//Dons method syntax
-Albums
-	.Where(x => x.ReleaseYear >= 1990 && x.ReleaseYear < 2000)
-	.OrderBy(x => x.ReleaseYear)
-	.ThenByDescending(x => x.Title)
-	.Select(x => x)
-   
-   
-   
-   
-   
+////Dons method syntax
+//Albums
+//	.Where(x => x.ReleaseYear >= 1990 && x.ReleaseYear < 2000)
+//	.OrderBy(x => x.ReleaseYear)
+//	.ThenByDescending(x => x.Title)
+//	.Select(x => x)
+
+//Create a list of albums showing the Album Title, Artist, and ReleaseYear for the good old 70's order by artist then title
+//query syntax
+//from x in Albums 
+//where x.ReleaseYear >= 1970 && x.ReleaseYear <= 1979
+//orderby x.Artist.Name, x.Title 
+//select new
+//{
+//	Artist = x.Artist.Name,
+//	Title = x.Title,
+//	ReleaseYear = x.ReleaseYear
+//}
+
+////method syntax
+//Albums
+//   .Where (x => ((x.ReleaseYear >= 1970) && (x.ReleaseYear <= 1979)))
+//   .OrderBy (x => x.Artist.Name)
+//   .ThenBy (x => x.Title)
+//   .Select (
+//      x => 
+//         new  
+//         {
+//            Artist = x.Artist.Name, 
+//            Title = x.Title, 
+//            ReleaseYear = x.ReleaseYear
+//         }
+//   )
+//   
    
    
    
