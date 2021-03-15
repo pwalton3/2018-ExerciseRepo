@@ -22,5 +22,38 @@ namespace WebApp.SamplePages
             MultiView1.ActiveViewIndex = index;
 
         }
+
+        protected void SendToV2FromV1_Click(object sender, EventArgs e)
+        {
+            IODataV2.Text = IODataV1.Text;
+            MultiView1.ActiveViewIndex = 1;
+            
+        }
+
+        protected void SendToV3FromV1_Click(object sender, EventArgs e)
+        {
+            IODataV3.Text = IODataV1.Text;
+            MultiView1.ActiveViewIndex = 2;
+        }
+
+        protected void SendToV1FromV2_Click(object sender, EventArgs e)
+        {
+            IODataV1.Text = IODataV2.Text;
+        }
+
+        protected void SendToV3FromV2_Click(object sender, EventArgs e)
+        {
+            IODataV3.Text = IODataV2.Text;
+        }
+
+        protected void SendToV1FromV3_Click(object sender, EventArgs e)
+        {
+            IODataV1.Text = IODataV3.Text;
+        }
+
+        protected void SendToV2FromV3_Click(object sender, EventArgs e)
+        {
+            IODataV2.Text = IODataV3.Text;
+        }
     }
 }

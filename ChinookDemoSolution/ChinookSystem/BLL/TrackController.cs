@@ -47,18 +47,18 @@ namespace ChinookSystem.BLL
         //    }
         //}
 
-        [DataObjectMethod(DataObjectMethodType.Select,false)]
-        public List<TrackList> List_TracksForPlaylistSelection(string tracksby, string arg)
-        {
-            using (var context = new ChinookSystemContext())
-            {
-                List<TrackList> results = null;
+        //[DataObjectMethod(DataObjectMethodType.Select,false)]
+        //public List<TrackList> List_TracksForPlaylistSelection(string tracksby, string arg)
+        //{
+        //    using (var context = new ChinookSystemContext())
+        //    {
+        //        List<TrackList> results = null;
 
-               //code to go here
+        //       //code to go here
 
-                return results;
-            }
-        }//eom
+        //        return results;
+        //    }
+        //}//eom
 
        
     }//eoc
